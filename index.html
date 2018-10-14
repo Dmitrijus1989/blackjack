@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Srisakdi" rel="stylesheet">
+  <title>Document</title>
+
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+  <button class="myButtons" id="play" onclick="startTheGame()" type="button" name="button">PLAY</button>
+  <button class="myButtons" id="replay" onclick="replayTheGame()" type="button" name="button">REPLAY</button>
+  <div class="overall">
+    <div id="cardsLeft" class="cardsLeft"></div>
+    <div class="computerWrapper">
+      <div class="dealer">Dealer</div>
+      <p id="computerColor"></p>
+      <p id="computerScore" class=""></p>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="playerWrapper">
+      <div class="player1">Player 1</div>
+      <div id="tie" class="tie">Game was tie</div>
+      <div id="won" class="won">YOU WON</div>
+      <div id="lose" class="lose">YOU LOSE</div>
+      <p id="playerColor"></p>
+      <p id="playerScore" class=""></p>
+    </div>
+    <button class="playerButtons myButtons" id="hit" onclick="player.takeCard()" type="button" name="button">HIT</button>
+    <button class="playerButtons myButtons" id="stand" onclick="player.pass()" type="button" name="button">STAND</button>
+  </div>
+</body>
+<script src="script.js"></script>
+
+</html>

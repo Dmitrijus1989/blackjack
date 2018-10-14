@@ -1,0 +1,117 @@
+.myButtons {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  width: 78px;
+  border-radius: 0.4em
+}
+#replay {
+  display: none;
+}
+body {
+  background-image:linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.6) 100%), url(3.jpg);
+  height: 100vh;
+}
+.overall {
+  border-radius: 0.4em;
+  color: white;
+  background-image:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%), url(bjtable.jpg);
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 50px auto;
+  width: 800px;
+  position: relative;
+}
+.computerWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 200px;
+  height: 80px;
+}
+.playerWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 200px;
+  height: 80px;
+}
+.lose {
+  border: black solid 1px;
+  background: red;
+  color: white;
+  width: 200px;
+  height: 40px;
+  font-size: 180%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 45%
+}
+.won {
+  border: black solid 1px;
+  background: green;
+  color: white;
+  width: 200px;
+  height: 40px;
+  font-size: 180%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 45%
+}
+.tie {
+  border: black solid 1px;
+  background: yellow;
+  color: white;
+  width: 200px;
+  height: 40px;
+  font-size: 180%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 45%
+}
+#hit {
+  position: absolute;
+  left: 14%;
+  bottom: 6%;
+  display: none;
+}
+#stand {
+  position: absolute;
+  right: 14%;
+  bottom: 6%;
+  display: none;
+}
+.cardsLeft {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+}
+.player1 {
+  font-family: 'Srisakdi', cursive;
+  font-weight: 600;
+  position: absolute;
+  left: -15%;
+  top: 0;
+}
+.dealer {
+  font-family: 'Srisakdi', cursive;
+  font-weight: 600;
+  position: absolute;
+  right: -15%;
+  top: 0;
+}
