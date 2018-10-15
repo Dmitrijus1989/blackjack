@@ -1,4 +1,5 @@
-let deck = []
+let deck = [];
+let bet = 0;
 function createDeck() {
   for (let i = 0; i < 4; i++) {
     for (j = 2; j <= 14; j++) {
@@ -47,17 +48,9 @@ const Player = function(money, cardsPlayerHave) {
       }
     },
   this.takeCard = () => {
-    let randomCard = Math.floor(Math.random() * deck.length - 1)
+    let randomCard = Math.floor(Math.random() * deck.length )
     this.cardsPlayerHave.push(deck.splice(randomCard, 1)[0])
-    this.scoreIs()
-    dealer.scoreIs()
-    let player1Cards = ""
-    this.cardsPlayerHave.map(function (element, index){
-      player1Cards += "Card " + (index + 1) + ": " + element.name + " " + element.color + "<br>"
-    })
-    document.getElementById("playerColor").innerHTML = player1Cards
-    document.getElementById("playerScore").innerHTML ="Score is: " + this.score
-    document.getElementById("cardsLeft").innerHTML = "cards left: "+deck.length
+    refresh()
     if (this.score > 21) {
       document.getElementById("lose").style.display = "flex"
     }
@@ -79,13 +72,8 @@ const dealer = {
   },
   action: function() {
       while (dealer.score < 17) {
-      let dealer1Cards = ""
       dealer.takeCard()
-      dealer.cards.map(function (element, index){
-        dealer1Cards += "Card " + (index + 1) + ": " + element.name + " " + element.color + "<br>"
-      })
-      document.getElementById("computerColor").innerHTML = dealer1Cards
-      document.getElementById("computerScore").innerHTML ="Score is: " + dealer.score
+      refresh()
     }
      if (dealer.score <= 21 && dealer.score > player.score) {
       document.getElementById("lose").style.display = "flex"
@@ -94,7 +82,7 @@ const dealer = {
     } else document.getElementById("tie").style.display = "flex"
     },
   takeCard: function() {
-    let randomCard = Math.floor(Math.random() * deck.length - 1)
+    let randomCard = Math.floor(Math.random() * deck.length)
     dealer.cards.push(deck.splice(randomCard, 1)[0])
     dealer.scoreIs();
     document.getElementById("cardsLeft").innerHTML = "cards left: "+deck.length;
@@ -105,11 +93,6 @@ const dealer = {
 }
 let player = new Player(1000, [])
 
-player.scoreIs()
-dealer.scoreIs()
-document.getElementById("playerScore").innerHTML ="Score is: " + player.score
-document.getElementById("computerScore").innerHTML ="Score is: " + dealer.score
-
 function startTheGame() {
   let player1Cards = ""
   let dealer1Cards = ""
@@ -119,15 +102,32 @@ function startTheGame() {
   document.getElementById('replay').style.display = "flex";
   for (let j = 0; j < 2; j++) {
     for (let i = 0; i < numberOfPlayers; i++) {
-      let randomCard = Math.floor(Math.random() * deck.length - 1)
+      let randomCard = Math.floor(Math.random() * deck.length)
+      console.log(randomCard);
       player.cardsPlayerHave.push(deck.splice(randomCard, 1)[0])
     }
     if (j == 0) {
-      let dealerRandomCard = Math.floor(Math.random() * deck.length - 1)
-      // dealer.score += deck[dealerRandomCard].value
+      let dealerRandomCard = Math.floor(Math.random() * deck.length)
+      console.log(dealerRandomCard);
       dealer.cards.push(deck.splice(dealerRandomCard, 1)[0])
     }
   }
+  refresh()
+}
+function replayTheGame() {
+  player.cardsPlayerHave = [];
+  dealer.cards = [];
+  player.score = 0;
+  dealer.score = 0;
+  document.getElementById("lose").style.display = "none"
+  document.getElementById("won").style.display = "none"
+  document.getElementById("tie").style.display = "none"
+  document.getElementById("noMoney").style.display = "none"
+  startTheGame()
+}
+function refresh() {
+  let player1Cards = ""
+  let dealer1Cards = ""
   player.scoreIs()
   dealer.scoreIs()
   player.cardsPlayerHave.map(function (element, index){
@@ -142,18 +142,16 @@ function startTheGame() {
   document.getElementById("computerColor").innerHTML = dealer1Cards
   document.getElementById("computerScore").innerHTML ="Score is: " + dealer.score
   document.getElementById("cardsLeft").innerHTML = "cards left: "+deck.length
+  document.getElementById("bank").innerHTML = "bank: "+player.money
+  document.getElementById("playingBank").innerHTML = "bet is: "+bet
 }
-function replayTheGame() {
-  player.cardsPlayerHave = [];
-  dealer.cards = [];
-  player.score = 0;
-  dealer.score = 0;
-  document.getElementById("lose").style.display = "none"
-  document.getElementById("won").style.display = "none"
-  document.getElementById("tie").style.display = "none"
-  startTheGame()
+function makeABet(tempBet) {
+  if (player.money >= tempBet) {
+  player.money -= tempBet;
+  bet += tempBet;
+} else document.getElementById("noMoney").style.display = "flex"
 }
-document.getElementById("cardsLeft").innerHTML = "cards left: "+deck.length
+refresh()
 console.log(dealer);
 console.log(player);
 console.log(deck);

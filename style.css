@@ -18,13 +18,14 @@ body {
   border-radius: 0.4em;
   color: white;
   background-image:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%), url(bjtable.jpg);
+  background-position: center;
   height: 320px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 50px auto;
-  width: 800px;
+  width: 700px;
   position: relative;
 }
 .computerWrapper {
@@ -45,7 +46,7 @@ body {
   width: 200px;
   height: 80px;
 }
-.lose {
+.lose, .won, .tie, .noMoney  {
   border: black solid 1px;
   background: red;
   color: white;
@@ -59,41 +60,24 @@ body {
   bottom: 45%
 }
 .won {
-  border: black solid 1px;
   background: green;
-  color: white;
-  width: 200px;
-  height: 40px;
-  font-size: 180%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 45%
 }
 .tie {
-  border: black solid 1px;
   background: yellow;
-  color: white;
-  width: 200px;
-  height: 40px;
-  font-size: 180%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 45%
+}
+.noMoney {
+  background: #FD8A8A;
 }
 #hit {
   position: absolute;
   left: 14%;
-  bottom: 6%;
+  bottom: 18%;
   display: none;
 }
 #stand {
   position: absolute;
   right: 14%;
-  bottom: 6%;
+  bottom: 18%;
   display: none;
 }
 .cardsLeft {
@@ -114,4 +98,23 @@ body {
   position: absolute;
   right: -15%;
   top: 0;
+}
+.bank {
+  position: absolute;
+  bottom: 1%;
+  left: 1%;
+}
+.betButtons {
+  margin-left: 12px;
+  border: solid 1px white;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+.lowerDropDown {
+  width: 700px;
+  height: 16%;
+  left: 15%;
+  position: absolute;
+  bottom: 0;
 }

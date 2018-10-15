@@ -24,6 +24,7 @@
     </div>
     <br>
     <br>
+    <div id="playingBank" class="playingBank"></div>
     <br>
     <br>
     <div class="playerWrapper">
@@ -31,8 +32,20 @@
       <div id="tie" class="tie">Game was tie</div>
       <div id="won" class="won">YOU WON</div>
       <div id="lose" class="lose">YOU LOSE</div>
+      <div id="noMoney" class="noMoney">NOT ENOGH MONEY</div>
       <p id="playerColor"></p>
       <p id="playerScore" class=""></p>
+    </div>
+    <div id="bank" class="bank"></div>
+    <div id="lowerDropDown" class="lowerDropDown">
+      <button id="bet1" class="betButtons" type="button" name="button"></button>
+      <button id="bet5" class="betButtons" type="button" name="button"></button>
+      <button id="bet10" class="betButtons" type="button" name="button"></button>
+      <button id="bet25" class="betButtons" type="button" name="button"></button>
+      <button id="bet50" class="betButtons" type="button" name="button"></button>
+      <button id="bet100" class="betButtons" type="button" name="button"></button>
+      <button id="bet500" class="betButtons" type="button" name="button"></button>
+      <button id="bet1000" class="betButtons" type="button" name="button"></button>
     </div>
     <button class="playerButtons myButtons" id="hit" onclick="player.takeCard()" type="button" name="button">HIT</button>
     <button class="playerButtons myButtons" id="stand" onclick="player.pass()" type="button" name="button">STAND</button>
