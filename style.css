@@ -19,7 +19,7 @@ body {
   color: white;
   background-image:linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%), url(bjtable.jpg);
   background-position: center;
-  height: 320px;
+  height: 420px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +35,7 @@ body {
   align-items: center;
   flex-direction: column;
   width: 200px;
-  height: 80px;
+  height: 100px;
 }
 .playerWrapper {
   position: relative;
@@ -44,20 +44,30 @@ body {
   align-items: center;
   flex-direction: column;
   width: 200px;
-  height: 80px;
+  height: 100px;
 }
+.playingBank {
+  transform: scale(2);
+  z-index: 10;
+  transition: all 0.3s;
+}
+
 .lose, .won, .tie, .noMoney  {
   border: black solid 1px;
   background: red;
   color: white;
   width: 200px;
   height: 40px;
-  font-size: 180%;
+  font-size: 150%;
   display: none;
   justify-content: center;
   align-items: center;
   position: absolute;
+  z-index: 999;
   bottom: 45%
+}
+.noMoney {
+  font-size: 120%;
 }
 .won {
   background: green;
@@ -103,18 +113,56 @@ body {
   position: absolute;
   bottom: 1%;
   left: 1%;
+  z-index: 10;
+  transition: all 0.3;
 }
-.betButtons {
-  margin-left: 12px;
-  border: solid 1px white;
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-}
+
 .lowerDropDown {
-  width: 700px;
+  width: 609px;
   height: 16%;
-  left: 15%;
+  left: 13%;
   position: absolute;
   bottom: 0;
+  z-index: 999;
+  transform-origin: center bottom;
+  transition: all 0.5s;
+}
+.lowerDropDown img {
+  cursor: pointer;
+  height: 100%;
+  border-radius: 50%;
+}
+.deal {
+float: right;
+margin-top: 15px;
+}
+.blackBox {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  position: absolute;
+  z-index: 7;
+  opacity: 0.6;
+}
+#computerColor {
+  height: 80px;
+  width: 65%;
+  position: relative;
+}
+#playerColor {
+  position: relative;
+  width: 65%;
+  height: 80px;
+}
+#playerColor img {
+  height: 80px;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s;
+}
+#computerColor img {
+  position: absolute;
+  left: 0;
+  height: 80px;
+  transition: all 0.3s;
 }

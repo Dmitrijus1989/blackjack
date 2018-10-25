@@ -7,6 +7,8 @@ function createDeck() {
       let number;
       let value;
       let name;
+      let colorForImg
+      let frontImage;
       if (i === 0) color = 'hearts'
       if (i === 1) color = 'clubs'
       if (i === 2) color = 'diamonds'
@@ -29,10 +31,16 @@ function createDeck() {
       }
       if (j < 11) number = j;
       if (j < 11) value = j;
+      if (color === 'hearts') colorForImg = 'H'
+      if (color === 'clubs') colorForImg = 'C'
+      if (color === 'diamonds') colorForImg = 'D'
+      if (color === 'spades') colorForImg = 'S'
+      frontImage = `PNG/${j}${colorForImg}.png`
       deck.push({
         color: color,
         value: value,
-        name: number
+        name: number,
+        frontImage: frontImage
       })
     }
   }
@@ -53,6 +61,8 @@ const Player = function(money, cardsPlayerHave) {
     refresh()
     if (this.score > 21) {
       document.getElementById("lose").style.display = "flex"
+      bet = 0;
+      betTime();
     }
   };
   this.pass = () => {
@@ -77,9 +87,20 @@ const dealer = {
     }
      if (dealer.score <= 21 && dealer.score > player.score) {
       document.getElementById("lose").style.display = "flex"
+      bet = 0;
+      betTime()
     } else if (dealer.score < player.score) {
       document.getElementById("won").style.display = "flex"
-    } else document.getElementById("tie").style.display = "flex"
+      wonBet()
+      bet = 0;
+      betTime()
+    } else {
+      document.getElementById("tie").style.display = "flex"
+      player.money = player.money + bet;
+      refresh()
+      bet = 0;
+      betTime()
+    }
     },
   takeCard: function() {
     let randomCard = Math.floor(Math.random() * deck.length)
@@ -88,6 +109,9 @@ const dealer = {
     document.getElementById("cardsLeft").innerHTML = "cards left: "+deck.length;
     if (dealer.score > 21) {
       document.getElementById("won").style.display = "flex"
+      wonBet();
+      bet = 0;
+      betTime()
     }
   }
 }
@@ -98,17 +122,13 @@ function startTheGame() {
   let dealer1Cards = ""
   document.getElementById('stand').style.display = "flex";
   document.getElementById('hit').style.display = "flex";
-  document.getElementById('play').style.display = "none";
-  document.getElementById('replay').style.display = "flex";
   for (let j = 0; j < 2; j++) {
     for (let i = 0; i < numberOfPlayers; i++) {
       let randomCard = Math.floor(Math.random() * deck.length)
-      console.log(randomCard);
       player.cardsPlayerHave.push(deck.splice(randomCard, 1)[0])
     }
     if (j == 0) {
       let dealerRandomCard = Math.floor(Math.random() * deck.length)
-      console.log(dealerRandomCard);
       dealer.cards.push(deck.splice(dealerRandomCard, 1)[0])
     }
   }
@@ -124,6 +144,7 @@ function replayTheGame() {
   document.getElementById("tie").style.display = "none"
   document.getElementById("noMoney").style.display = "none"
   startTheGame()
+  document.getElementById("lowerDropDown").style.transform = 'scaleY(1)';
 }
 function refresh() {
   let player1Cards = ""
@@ -131,27 +152,105 @@ function refresh() {
   player.scoreIs()
   dealer.scoreIs()
   player.cardsPlayerHave.map(function (element, index){
-    player1Cards += "Card " + (index + 1) + ": " + element.name + " " + element.color + "<br>"
+    player1Cards += '<img src="'+element.frontImage+'">'
   })
   document.getElementById("playerColor").innerHTML = player1Cards
   document.getElementById("playerScore").innerHTML ="Score is: " + player.score
+  if (document.getElementsByClassName('playerColor')[0].lastChild) {
+      for (var i = 0; i < document.getElementsByClassName('playerColor')[0].children.length; i++) {
+        let multiNumber = 25;
+        multiNumber = multiNumber * i;
+        document.getElementsByClassName('playerColor')[0].children[i].style.left = `${multiNumber}px`
+    }
+}
 
   dealer.cards.map(function (element, index){
-    dealer1Cards += "Card " + (index + 1) + ": " + element.name + " " + element.color + "<br>"
+    dealer1Cards += '<img src="'+element.frontImage+'">'
   })
   document.getElementById("computerColor").innerHTML = dealer1Cards
   document.getElementById("computerScore").innerHTML ="Score is: " + dealer.score
+  if (document.getElementsByClassName('computerColor')[0].lastChild) {
+      for (var i = 0; i < document.getElementsByClassName('computerColor')[0].children.length; i++) {
+        let multiNumber = 25;
+        multiNumber = multiNumber * i;
+        document.getElementsByClassName('computerColor')[0].children[i].style.left = `${multiNumber}px`
+    }
+}
   document.getElementById("cardsLeft").innerHTML = "cards left: "+deck.length
   document.getElementById("bank").innerHTML = "bank: "+player.money
   document.getElementById("playingBank").innerHTML = "bet is: "+bet
+}
+function doHide() {
+  document.getElementById("noMoney").style.display = "none"
 }
 function makeABet(tempBet) {
   if (player.money >= tempBet) {
   player.money -= tempBet;
   bet += tempBet;
-} else document.getElementById("noMoney").style.display = "flex"
+  refresh()
+} else {
+  document.getElementById("noMoney").style.display = "flex"
+  setTimeout( 'doHide()', 3500 )
+  refresh()
+  }
+}
+document.getElementById('overall').addEventListener("click", function(e) {
+  switch (e.target) {
+    case bet1:
+    case bet5:
+    case bet10:
+    case bet25:
+    case bet50:
+    case bet100:
+      break;
+    default:
+    doHide();
+  }
+  if (document.getElementById('blackBox').style.opacity === '0.6' && e.target === blackBox && document.getElementById('playingBank').style.zIndex === '1') {
+    startBeting()
+    noAlertMessage()
+  }
+})
+function startBeting() {
+document.getElementById('playingBank').style.transform = 'scale(2)'
+document.getElementById('playingBank').style.zIndex = '10';
+document.getElementById('bank').style.zIndex = '10';
+document.getElementById("lowerDropDown").style.transform = 'scaleY(1)';
+refresh()
+}
+function betTime(){
+  document.getElementById('blackBox').style.opacity = '0.6';
+  document.getElementById('blackBox').style.zIndex = '7';
+  if (document.getElementById('playingBank').style.zIndex === '10') {
+    return
+  }else {
+    console.log("replaying The Game!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    setTimeout ('noAlertMessage()', 4000)
+    setTimeout ("startBeting()", 4000)
+  }
+}
+function noMoreBlackBox() {
+  document.getElementById('blackBox').style.opacity = '0';
+  document.getElementById('blackBox').style.zIndex = '0';
+  document.getElementById('playingBank').style.transform = 'scale(1)';
+  document.getElementById('playingBank').style.zIndex = '1';
+  document.getElementById('bank').style.zIndex = '1';
+}
+function wonBet() {
+  player.money = player.money + (bet * 2)
+  refresh()
+}
+function deal() {
+  replayTheGame()
+  noMoreBlackBox()
+  refresh()
+  document.getElementById("lowerDropDown").style.transform = 'scaleY(0)';
+}
+function noAlertMessage() {
+  document.getElementById("lose").style.display = "none"
+  document.getElementById("won").style.display = "none"
+  document.getElementById("tie").style.display = "none"
+  document.getElementById("noMoney").style.display = "none"
 }
 refresh()
-console.log(dealer);
-console.log(player);
 console.log(deck);

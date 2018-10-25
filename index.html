@@ -8,19 +8,18 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css?family=Srisakdi" rel="stylesheet">
   <title>Document</title>
-
-  <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 
 <body>
-  <button class="myButtons" id="play" onclick="startTheGame()" type="button" name="button">PLAY</button>
-  <button class="myButtons" id="replay" onclick="replayTheGame()" type="button" name="button">REPLAY</button>
-  <div class="overall">
+  <!-- <button class="myButtons" id="play" onclick="startTheGame()" type="button" name="button">PLAY</button>
+  <button class="myButtons" id="replay" onclick="replayTheGame()" type="button" name="button">REPLAY</button> -->
+  <div id="overall" class="overall">
+  <div id="blackBox" class="blackBox"></div>
     <div id="cardsLeft" class="cardsLeft"></div>
     <div class="computerWrapper">
       <div class="dealer">Dealer</div>
-      <p id="computerColor"></p>
-      <p id="computerScore" class=""></p>
+      <div id="computerColor" class="computerColor"></div>
+      <div id="computerScore" class=""></div>
     </div>
     <br>
     <br>
@@ -33,24 +32,24 @@
       <div id="won" class="won">YOU WON</div>
       <div id="lose" class="lose">YOU LOSE</div>
       <div id="noMoney" class="noMoney">NOT ENOGH MONEY</div>
-      <p id="playerColor"></p>
-      <p id="playerScore" class=""></p>
+      <div id="playerColor" class="playerColor"></div>
+      <div id="playerScore" class=""></div>
     </div>
     <div id="bank" class="bank"></div>
     <div id="lowerDropDown" class="lowerDropDown">
-      <button id="bet1" class="betButtons" type="button" name="button"></button>
-      <button id="bet5" class="betButtons" type="button" name="button"></button>
-      <button id="bet10" class="betButtons" type="button" name="button"></button>
-      <button id="bet25" class="betButtons" type="button" name="button"></button>
-      <button id="bet50" class="betButtons" type="button" name="button"></button>
-      <button id="bet100" class="betButtons" type="button" name="button"></button>
-      <button id="bet500" class="betButtons" type="button" name="button"></button>
-      <button id="bet1000" class="betButtons" type="button" name="button"></button>
+        <img onclick="makeABet(1)" class="tockens" id="bet1" src="tockens/chips-02.png" alt="">
+        <img onclick="makeABet(5)" class="tockens" id="bet5" src="tockens/chips-03.png" alt="">
+        <img onclick="makeABet(10)" class="tockens" id="bet10" src="tockens/chips-04.png" alt="">
+        <img onclick="makeABet(25)" class="tockens" id="bet25" src="tockens/chips-05.png" alt="">
+        <img onclick="makeABet(50)" class="tockens" id="bet50" src="tockens/chips-06.png" alt="">
+        <img onclick="makeABet(100)" class="tockens" id="bet100" src="tockens/chips-07.png" alt="">
+        <!-- <button id="bet500" class="betButtons" type="button" name="button"></button>
+        <button id="bet1000" class="betButtons" type="button" name="button"></button> -->
+      <button class="deal myButtons" id="deal" onclick="deal()" type="button" name="button">DEAL</button>
     </div>
     <button class="playerButtons myButtons" id="hit" onclick="player.takeCard()" type="button" name="button">HIT</button>
     <button class="playerButtons myButtons" id="stand" onclick="player.pass()" type="button" name="button">STAND</button>
-  </div>
+    </div>
 </body>
 <script src="script.js"></script>
-
 </html>
